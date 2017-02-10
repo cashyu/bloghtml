@@ -60,7 +60,7 @@ function removeEvent(obj, type, fn){
 //获取style
 function getStyle(element, attr) {
   let value;
-  value = parseInt(window.getComputedStyle(element, null)[attr]);
+  value = window.getComputedStyle(element, null)[attr];
   return value;
 }
 

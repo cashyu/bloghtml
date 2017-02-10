@@ -9,6 +9,7 @@ body {
   top: 100px;
   left: 100px;
   background: red;
+  opacity: 0.3;  /*透明度*/
 }
 #aaa {
   width: 300px;
