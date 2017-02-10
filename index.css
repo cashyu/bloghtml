@@ -2,7 +2,7 @@
 body{
   margin: 0;
   padding: 0;
-  background: url(images/header_bg.png)repeat-x;
+  background: #fff url(images/header_bg.png)repeat-x;
   color: #333;
   font-size:12px;
 }
@@ -38,12 +38,13 @@ ul li {
   float:right;
   background: url(images/arrow.png) no-repeat 55px center;
   cursor: pointer; /*加手型*/
+  position:relative;
 }
 
 #header ul {
   position: absolute;
   top: 30px;
-  left: 870px;
+  left: -20px;
   background:#FBF7E1;
   width:100px;
   height:110px;
@@ -61,12 +62,96 @@ ul li {
 }
 
 #header ul li a {
-  display: block;
-  text-decoration:none;
+  display: block;   /*设置成block，可以使ａ标签与hover背景一样大*/
+  text-decoration:none;   /*去掉下划线*/
   color: #333;
-  background:url(images/arrow3.gif) no-repeat 5px center;
+  background:url(images/arrow3.gif) no-repeat 5px center;/*只显示一个*/
 }
 
-#header ul li a:hover{
-  background: url(images/arrow4.gif) no-repeat 5px center;;
+#header ul li a:hover{  /*鼠标放上去的背景颜色*/
+  background: url(images/arrow4.gif) no-repeat 5px center;
+}
+
+
+#header .login{
+  float:right;
+  width:35px;
+  height:30px;
+  line-height:30px;
+  cursor:pointer; /*手型*/
+}
+
+#screen{
+  position:absolute;
+  top:0;
+  left:0;
+  width:500px;
+  height:500px;
+  background:#000;
+  z-index:9998; /*层结构,越大显示越上层*/
+  opacity:0.3; /*亮度*/
+  display:none;
+}
+
+#login {
+  width:350px;
+  height:250px;
+  border:1px solid #ccc;
+  position:absolute;
+  display:none;
+  z-index:9999; /*层结构,越大显示月上层*/
+  background:#fff;
+}
+
+#login h2{
+  height: 40px;
+  line-height:40px;
+  text-align: center;/*内容居中*/
+  font-size:14px;
+  letter-spacing:1px; /*字体间距*/
+  color:#666;
+  background:url(images/login_header.png) repeat-x; /*沿x轴方向重复*/
+  margin:0;
+  padding:0;
+  border-bottom:1px solid #ccc;
+  margin:0 0 20px 0; /*下外边距20*/
+  cursor:move;  /*显示可以移动的标志*/
+}
+#login h2 img {
+  float:right;
+  position:relative;
+  top:14px;
+  right:8px;
+  cursor:pointer; /**手型*/
+}
+#login div.user, #login div.pass{
+  font-size:14px;
+  color:#666;
+  padding:5px 0; /*上下为10，左右为0*/
+  text-align:center;
+}
+#login input.text {
+  width:200px;
+  height: 25px;
+  border:1px solid #ccc;
+  background: #fff;
+  font-size:14px;
+}
+
+#login .button{
+  text-align:center;
+  padding:20px 0;
+}
+#login input.submit{
+  width:107px;
+  height:30px;
+  background:url(images/login_button.png) no-repeat;
+  border:none; /*去掉边框*/
+  cursor:pointer;
+}
+
+#login .other {
+  text-align:right;
+  padding: 15px 10px;
+  color:#666;
 }

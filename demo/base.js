@@ -164,7 +164,7 @@ Base.prototype.css = function(attr, value){
   for(let i = 0;i < this.elements.length; i++){
     if(arguments.length == 1){
       //return this.elements[i].style[attr];
-      return window.getComputedStyle(this.elements[i], null)[attr];//返回原有的属相值
+      return getStyle(this.elements[i], attr) + 'px';
     }
     this.elements[i].style[attr] = value; //设置新的属性值
   }
@@ -285,6 +285,58 @@ Base.prototype.resize = function(fn) {
   }
   return this;
 }
+
+//设置动画
+Base.prototype.animate = function(obj) {
+  var t = 50;
+  for(let i = 0; i < this.elements.length; i++){ 
+    let element = this.elements[i];
+    let attr = obj['attr'] == 'x' ? 'left' : obj['attr'] == 'y' ? 'top' : 
+              obj['attr']  == 'w' ? 'width' : obj['attr'] = 'h' ? 'height' : 'left';
+    let start = obj['start'] != undefined ? obj['start'] : getStyle(element, attr);//默认css的起始位置
+    let t = obj['t'] != undefined ? obj['t'] : 30;//默认30
+    let step = obj['step'] != undefined ? obj['step'] : 10;//默认10
+
+    let speed = obj['speed'] != undefined ? obj['speed'] : 6; //默认缓冲速度6
+    let type = obj['type'] == 0 ? 'constat' : obj['type'] == 1 ? 'buffer' : 'buffer';//０匀速，１缓冲，默认缓冲
+    let target = obj['target'] ;
+    let alter = obj['alter'] ;
+    if(alter != undefined && target == undefined) {
+      target = alter + start;
+    } else if(alter == undefined && target == undefined) {
+      throw new Error('alter增量或target目标量必须传一个')
+    }
+
+    if(start > target) step = -step;
+
+    element.style[attr] = start + 'px'
+    clearInterval(window.timer); //每次点击清楚定时器，防止多次点击加速移动
+    timer = setInterval(function() {
+      
+      if(type == 'buffer') {
+        step = (target - getStyle(element, attr)) / speed;
+        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+      } 
+      if(step == 0) {
+        setTarget();
+      }
+
+      if(step > 0 && Math.abs(getStyle(element, attr) - target) <= step) {
+        setTarget();
+      }else if(step < 0 && (getStyle(element, attr) - target) <= Math.abs(step)){
+        setTarget();
+      }else {
+        element.style[attr] = getStyle(element, attr) + step + 'px';
+      }
+      document.getElementById('aaa').innerHTML += getStyle(element, attr) + '<br/>'
+    },  t); 
+    function setTarget() {
+      element.style[attr] = target + 'px';
+      clearInterval(timer);
+    }
+  }
+  return this;
+};
 
 //插件入口
 Base.prototype.extend = function(name, fn){

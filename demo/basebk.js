@@ -143,15 +143,6 @@ Base.prototype.eq = function(num) {
   this.elements[0] = element;
   return this;
 }
-//获取收个节点，病返回这个节点对象
-Base.prototype.first = function() {
-  return this.elements[0];
-};
-
-//获取末尾节点，病返回这个节点对象
-Base.prototype.last = function() {
-  return this.elements[this.elements.length - 1];
-};
 
 //获取某一个节点i,并返回节点对象
 Base.prototype.ge = function(num) {
@@ -285,6 +276,101 @@ Base.prototype.resize = function(fn) {
   }
   return this;
 }
+
+/*
+//拖拽功能
+Base.prototype.drag = function(){
+  for(let i = 0; i < this.elements.length; i++){
+    addEvent(this.elements[i], 'mousedown', function(e){
+      //preDef(e);
+      let _this = this //_this = this = oDiv
+      let diffx = e.clientX - _this.offsetLeft;  //鼠标的ｘ坐标，减去登录框的ｘ坐标
+      let diffy = e.clientY - _this.offsetTop;  //鼠标的y坐标，减去登录框的ｘ坐标
+      if(e.target.tagName == 'H2'){
+        addEvent(document, 'mousemove', move);
+        addEvent(document, 'mouseup', up);
+      }else{
+        removeEvent(document, 'mousemove', move);
+        removeEvent(document, 'mouseup', up);
+      }
+      function move(e){
+        let left = e.clientX - diffx;
+        let top = e.clientY - diffy;
+        if(left < 0){
+          left = 0;
+        }else if(left > getInner().width - _this.offsetWidth){
+          left = getInner().width - _this.offsetWidth; 
+        }
+        if(top < 0){
+          top = 0;
+        }else if(top > getInner().height - _this.offsetHeight){
+          top = getInner().height - _this.offsetHeight; 
+        }
+        _this.style.top = top + 'px';
+        _this.style.left = left + 'px';
+        
+        if(typeof _this.setCapture != 'undefined') {
+          _this.setCapture();
+        }
+      } 
+      function up(){
+        removeEvent(document, 'mousemove', move);
+        removeEvent(document, 'mouseup', up);
+        if(typeof _this.releaseCapture != 'undefined'){
+          _this.releaseCapture();
+        }
+      }  
+    }); 
+  }
+  return this;
+}
+*/
+/*
+//拖拽功能
+Base.prototype.drag = function(){
+  for(let i = 0; i < this.elements.length; i++){
+    this.elements[i].onmousedown = function(e){
+      //preDef(e);
+      let _this = this //_this = this = oDiv
+      let diffx = e.clientX - _this.offsetLeft;  //鼠标的ｘ坐标，减去登录框的ｘ坐标
+      let diffy = e.clientY - _this.offsetTop;  //鼠标的y坐标，减去登录框的ｘ坐标
+      if(e.target.tagName != 'H2'){
+        document.onmousemove = null;
+        document.onmouseup = null;
+      }else {
+      if(typeof _this.setCapture != 'undefined') {
+        _this.setCapture();
+      }
+        document.onmousemove = function(e){
+          //this = document
+          let left = e.clientX - diffx;
+          let top = e.clientY - diffy;
+          if(left < 0){
+            left = 0;
+          }else if(left > getInner().width - _this.offsetWidth){
+            left = getInner().width - _this.offsetWidth; 
+          }
+          if(top < 0){
+            top = 0;
+          }else if(top > getInner().height - _this.offsetHeight){
+            top = getInner().height - _this.offsetHeight; 
+          }
+
+          _this.style.top = top + 'px';
+          _this.style.left = left + 'px';
+        };
+      }  
+      document.onmouseup =function(e){
+        this.onmousemove = null;
+        this.onmouseup = null;
+        if(typeof _this.releaseCapture != 'undefined'){
+          _this.releaseCapture();
+        }
+      }   
+    }; 
+  }
+}
+*/
 
 //插件入口
 Base.prototype.extend = function(name, fn){
